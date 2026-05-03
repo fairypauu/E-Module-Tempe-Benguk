@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Module: Bioteknologi Konvensional – Tempe Benguk Kulon Progo</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink:      #FF6B9D;
+    --pink-pale: #FFD6E8;
+    --pink-soft: #FFF0F5;
+    --blue:      #4A90D9;
+    --blue-pale: #C8E6FA;
+    --blue-soft: #EEF7FF;
+    --yellow:    #FFBE0B;
+    --yellow-pale:#FFF4CC;
+    --yellow-soft:#FFFAED;
+    --mint:      #2DD4A4;
+    --mint-pale: #C8F5EA;
+    --lavender:  #A78BFA;
+    --lav-pale:  #EDE9FE;
+    --bg:        #FFF5F8;
+    --card:      #FFFFFF;
+    --text:      #3D3557;
+    --text-muted:#8878A8;
+    --border:    rgba(200,180,220,0.3);
+    --radius:    18px;
+    --shadow:    0 4px 20px rgba(180,120,200,0.10);
+    --shadow-lg: 0 8px 32px rgba(180,120,200,0.16);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    position: fixed;
+    left:0; top:0;
+    width: 240px; height:100vh;
+    background: linear-gradient(180deg, #fff5fb 0%, #eef7ff 100%);
+    border-right: 2px solid var(--pink-pale);
+    z-index:100;
+    overflow-y:auto;
+    transition: transform .35s ease;
+    padding-bottom:40px;
+  }
+
+  #sidebar .brand {
+    padding: 24px 18px 14px;
+    border-bottom: 2px solid var(--pink-pale);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--pink);
+    letter-spacing: .5px;
+  }
+  #sidebar .brand span {
+    display: block;
+    font-size:10px;
+    color:var(--text-muted);
+    font-family:'Nunito',sans-serif;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+
+  #sidebar nav a {
+    display: block;
+    padding: 8px 18px 8px 22px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all .2s;
+    border-radius: 0 10px 10px 0;
+    margin: 1px 8px 1px 0;
+  }
+  #sidebar nav a:hover,
+  #sidebar nav a.active {
+    color: var(--pink);
+    border-left-color: var(--pink);
+    background: var(--pink-soft);
+  }
+  #sidebar nav .nav-section {
+    padding: 14px 18px 5px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  /* ─── MAIN ─── */
+  #main { margin-left:240px; min-height:100vh; }
+
+  /* ─── PROGRESS BAR ─── */
+  #progress {
+    position:fixed;
+    top:0; left:240px; right:0;
+    height:3px;
+    background: linear-gradient(90deg, var(--pink), var(--blue), var(--yellow));
+    transform-origin:left;
+    transform:scaleX(0);
+    z-index:99;
+    transition:transform .1s;
+    border-radius:0 0 3px 0;
+  }
+
+  /* ─── COVER ─── */
+  #cover {
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background: linear-gradient(135deg, #fff0f8 0%, #eef7ff 50%, #fff8e7 100%);
+  }
+
+  .cover-blobs { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .blob {
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:.55;
+  }
+  .blob-1 { width:420px;height:420px; background:var(--pink-pale); top:-100px;left:-120px; }
+  .blob-2 { width:350px;height:350px; background:var(--blue-pale); bottom:-80px;right:-80px; }
+  .blob-3 { width:280px;height:280px; background:var(--yellow-pale); bottom:100px;left:60px; }
+  .blob-4 { width:200px;height:200px; background:var(--mint-pale); top:100px;right:120px; }
+
+  .floating-emoji {
+    position:absolute;
+    font-size:2.5rem;
+    animation: floaty 4s ease-in-out infinite;
+    pointer-events:none;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,0.08));
+  }
+  @keyframes floaty {
+    0%,100%{transform:translateY(0) rotate(-5deg);}
+    50%{transform:translateY(-18px) rotate(5deg);}
+  }
+
+  .cover-content {
+    position:relative; z-index:2;
+    text-align:center;
+    padding:60px 40px;
+    max-width:780px;
+  }
+
+  .cover-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:white;
+    border: 2px solid var(--pink-pale);
+    color:var(--pink);
+    font-family:'Fredoka',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    padding:7px 20px;
+    border-radius:100px;
+    margin-bottom:28px;
+    box-shadow:0 4px 16px rgba(255,107,157,.15);
+  }
+
+  .cover-title {
+    font-family:'Fredoka',sans-serif;
+    font-size:clamp(28px,4vw,54px);
+    font-weight:700;
+    line-height:1.15;
+    color:var(--text);
+    margin-bottom:10px;
+  }
+  .cover-title .accent-pink { color:var(--pink); }
+  .cover-title .accent-blue { color:var(--blue); }
+  .cover-title .accent-yellow { color:var(--yellow); }
+
+  .cover-subtitle {
+    font-size:15px;
+    color:var(--text-muted);
+    margin-bottom:40px;
+    font-style:italic;
+  }
+
+  .cover-meta {
+    display:flex; gap:0; justify-content:center; flex-wrap:wrap;
+    margin-top:40px;
+    background:white;
+    border-radius:20px;
+    border:2px solid var(--pink-pale);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .cover-meta-item {
+    flex:1; min-width:130px;
+    padding:16px 14px;
+    border-right:1px solid var(--pink-pale);
+    text-align:center;
+  }
+  .cover-meta-item:last-child { border-right:none; }
+  .cover-meta-item label {
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--blue);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  .cover-meta-item span {
+    font-family:'Fredoka',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--text);
+  }
+
+  .scroll-hint {
+    position:absolute;
+    bottom:32px; left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    animation: bob 2.5s ease-in-out infinite;
+  }
+  .scroll-hint span { font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:2px; display:block; margin-bottom:8px; }
+  .scroll-arrow {
+    width:26px; height:26px;
+    border-right:3px solid var(--pink);
+    border-bottom:3px solid var(--pink);
+    transform:rotate(45deg);
+    margin:0 auto;
+    border-radius:2px;
+  }
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+  /* ─── SECTIONS ─── */
+  .section {
+    padding:72px 64px;
+    max-width:940px;
+    margin:0 auto;
+    border-bottom:2px dashed var(--pink-pale);
+  }
+
+  .section-label {
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--blue);
+    margin-bottom:10px;
+  }
+  .section-label::after {
+    content:'';
+    display:inline-block;
+    width:50px; height:2px;
+    background:linear-gradient(90deg,var(--blue),transparent);
+    border-radius:2px;
+  }
+
+  h2 {
+    font-family:'Fredoka',sans-serif;
+    font-size:clamp(22px,3vw,34px);
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:24px;
+    line-height:1.2;
+  }
+  h3 {
+    font-family:'Fredoka',sans-serif;
+    font-size:20px;
+    font-weight:600;
+    color:var(--pink);
+    margin:32px 0 12px;
+  }
+  h4 {
+    font-family:'Fredoka',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--blue);
+    margin:20px 0 8px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+  p { color:var(--text); margin-bottom:14px; }
+  strong { color:var(--pink); }
+  em { color:var(--blue); font-style:italic; }
+
+  ul, ol { padding-left:22px; margin-bottom:14px; color:var(--text); }
+  li { margin-bottom:5px; }
+
+  /* ─── CARDS ─── */
+  .card {
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:22px 26px;
+    margin:20px 0;
+    box-shadow:var(--shadow);
+    border:1.5px solid var(--border);
+    position:relative;
+    overflow:hidden;
+  }
+  .card-pink  { border-left:5px solid var(--pink); background:var(--pink-soft); }
+  .card-blue  { border-left:5px solid var(--blue); background:var(--blue-soft); }
+  .card-yellow{ border-left:5px solid var(--yellow); background:var(--yellow-soft); }
+  .card-mint  { border-left:5px solid var(--mint); background:var(--mint-pale); }
+  .card-lav   { border-left:5px solid var(--lavender); background:var(--lav-pale); }
+
+  .card-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:9px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .card-pink  .card-label { color:var(--pink); }
+  .card-blue  .card-label { color:var(--blue); }
+  .card-yellow .card-label { color:var(--yellow); }
+  .card-mint  .card-label { color:var(--mint); }
+  .card-lav   .card-label { color:var(--lavender); }
+
+  /* ─── KATA PENGANTAR ─── */
+  .pengantar-box {
+    background:white;
+    border-radius:20px;
+    padding:36px 40px;
+    box-shadow:var(--shadow);
+    border:2px solid var(--pink-pale);
+    position:relative;
+    overflow:hidden;
+  }
+  .pengantar-box::before {
+    content:'"';
+    position:absolute;
+    top:-10px; left:20px;
+    font-family:'Fredoka',sans-serif;
+    font-size:160px;
+    color:rgba(255,107,157,.06);
+    line-height:1;
+  }
+
+  /* ─── TOC ─── */
+  .toc-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:20px;
+  }
+  .toc-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 16px;
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:12px;
+    cursor:pointer;
+    transition:all .2s;
+    text-decoration:none;
+    color:var(--text);
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 2px 8px rgba(255,107,157,.06);
+  }
+  .toc-item:hover {
+    background:var(--pink-soft);
+    border-color:var(--pink);
+    transform:translateX(4px);
+    color:var(--pink);
+    box-shadow:var(--shadow);
+  }
+  .toc-num {
+    font-family:'Fredoka',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    color:var(--pink);
+    min-width:30px;
+    text-align:center;
+    background:var(--pink-pale);
+    border-radius:8px;
+    padding:2px 6px;
+  }
+
+  /* ─── TABLES ─── */
+  .table-wrap { overflow-x:auto; margin:16px 0; border-radius:14px; box-shadow:var(--shadow); }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  thead tr { background:linear-gradient(135deg,var(--pink-pale),var(--blue-pale)); }
+  th {
+    padding:12px 14px;
+    text-align:left;
+    font-family:'Fredoka',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--text);
+    border-bottom:2px solid white;
+  }
+  td { padding:11px 14px; border-bottom:1px solid var(--pink-pale); color:var(--text); }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:var(--pink-soft); }
+  tbody tr:nth-child(even) td { background:rgba(255,214,232,.08); }
+
+  /* ─── MATERI TABS ─── */
+  .tab-wrap { margin-top:8px; }
+  .tab-btns { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:4px; }
+  .tab-btn {
+    padding:9px 18px;
+    background:white;
+    border:2px solid var(--pink-pale);
+    color:var(--text-muted);
+    cursor:pointer;
+    font-family:'Fredoka',sans-serif;
+    font-size:13px;
+    font-weight:600;
+    border-radius:12px 12px 0 0;
+    transition:all .2s;
+  }
+  .tab-btn:hover { color:var(--pink); border-color:var(--pink); background:var(--pink-soft); }
+  .tab-btn.active { background:var(--pink); color:white; border-color:var(--pink); }
+  .tab-panel { display:none; background:white; border:2px solid var(--pink-pale); border-radius:0 14px 14px 14px; padding:24px; box-shadow:var(--shadow); }
+  .tab-panel.active { display:block; }
+
+  /* ─── STEP CARDS (Prosedur) ─── */
+  .step-list { display:flex; flex-direction:column; gap:14px; margin-top:16px; }
+  .step-item {
+    display:flex; gap:18px; align-items:flex-start;
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:16px;
+    padding:20px 22px;
+    box-shadow:var(--shadow);
+    transition:transform .2s;
+  }
+  .step-item:hover { transform:translateX(4px); border-color:var(--pink); }
+  .step-num {
+    width:44px; height:44px; min-width:44px;
+    background:linear-gradient(135deg,var(--pink),var(--lavender));
+    color:white;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fredoka',sans-serif;
+    font-size:18px;
+    font-weight:700;
+    box-shadow:0 4px 12px rgba(255,107,157,.3);
+  }
+  .step-body h4 { margin:0 0 6px; color:var(--pink); font-size:14px; }
+  .step-body p, .step-body ul { margin:0; font-size:13.5px; }
+
+  /* ─── TIMELINE ─── */
+  .timeline { position:relative; padding-left:36px; margin-top:20px; }
+  .timeline::before {
+    content:'';
+    position:absolute;
+    left:10px; top:0; bottom:0;
+    width:3px;
+    background:linear-gradient(180deg,var(--pink),var(--blue),var(--mint));
+    border-radius:3px;
+  }
+  .tl-event { position:relative; margin-bottom:28px; }
+  .tl-event::before {
+    content:'✿';
+    position:absolute;
+    left:-30px; top:0;
+    font-size:18px;
+    filter:drop-shadow(0 2px 4px rgba(255,107,157,.4));
+  }
+  .tl-label {
+    font-family:'Fredoka',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    color:var(--pink);
+    background:var(--pink-pale);
+    display:inline-block;
+    padding:2px 12px;
+    border-radius:100px;
+    margin-bottom:6px;
+  }
+
+  /* ─── ACTIVITY CARDS ─── */
+  .activity-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:20px;
+  }
+  .activity-card {
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:var(--radius);
+    padding:24px;
+    transition:all .25s;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .activity-card::after {
+    content:'';
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:3px;
+    background:linear-gradient(90deg,var(--pink),var(--blue));
+    transform:scaleX(0);
+    transition:transform .3s;
+    border-radius:0 0 4px 4px;
+  }
+  .activity-card:hover { border-color:var(--pink); transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+  .activity-card:hover::after { transform:scaleX(1); }
+  .activity-icon { font-size:32px; margin-bottom:12px; }
+  .activity-card h4 { margin:0 0 8px; font-size:14px; }
+  .activity-card p { font-size:13px; margin:0; color:var(--text-muted); }
+
+  /* ─── SOAL ─── */
+  .soal-list { list-style:none; }
+  .soal-item {
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:16px;
+    padding:22px 26px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+  }
+  .soal-num {
+    font-family:'Fredoka',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    color:white;
+    background:var(--pink);
+    border-radius:100px;
+    display:inline-block;
+    padding:2px 12px;
+    margin-bottom:10px;
+    letter-spacing:.5px;
+  }
+  .soal-item p { margin:0 0 14px; color:var(--text); font-weight:600; }
+  .options { display:flex; flex-direction:column; gap:7px; }
+  .option {
+    display:flex; align-items:center; gap:12px;
+    padding:10px 16px;
+    background:var(--pink-soft);
+    border:2px solid var(--pink-pale);
+    cursor:pointer;
+    transition:all .2s;
+    font-size:13.5px;
+    color:var(--text);
+    border-radius:10px;
+    font-weight:600;
+  }
+  .option:hover { border-color:var(--blue); background:var(--blue-soft); color:var(--blue); }
+  .option.correct { background:var(--mint-pale); border-color:var(--mint); color:#1a9e7a; }
+  .option.wrong   { background:var(--pink-soft); border-color:var(--pink); color:var(--pink); }
+  .option-letter {
+    font-family:'Fredoka',sans-serif;
+    font-size:14px; font-weight:700;
+    color:var(--pink);
+    min-width:24px;
+    text-align:center;
+    background:var(--pink-pale);
+    border-radius:6px;
+    padding:1px 6px;
+  }
+  .option.correct .option-letter { background:var(--mint-pale); color:var(--mint); }
+  .option.wrong .option-letter   { background:var(--pink-pale); color:var(--pink); }
+
+  .essay-area {
+    width:100%;
+    background:var(--pink-soft);
+    border:2px solid var(--pink-pale);
+    color:var(--text);
+    font-family:'Nunito',sans-serif;
+    font-size:14px;
+    padding:14px 16px;
+    resize:vertical;
+    min-height:100px;
+    outline:none;
+    transition:border-color .2s;
+    margin-top:10px;
+    border-radius:12px;
+  }
+  .essay-area:focus { border-color:var(--pink); background:white; }
+
+  /* ─── RANGKUMAN GRID ─── */
+  .rangkuman-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:20px;
+  }
+  .rangkuman-card {
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:16px;
+    padding:22px 18px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:transform .2s;
+  }
+  .rangkuman-card:hover { transform:translateY(-4px); border-color:var(--pink); box-shadow:var(--shadow-lg); }
+  .rangkuman-card .icon { font-size:34px; margin-bottom:10px; }
+  .rangkuman-card h4 { color:var(--pink); margin:0 0 8px; font-size:14px; }
+  .rangkuman-card p  { font-size:12.5px; margin:0; color:var(--text-muted); }
+
+  /* ─── GLOSARIUM ─── */
+  .glos-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:16px;
+  }
+  .glos-item {
+    padding:14px 18px;
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(255,107,157,.05);
+  }
+  .glos-term { font-family:'Fredoka',sans-serif; font-size:14px; font-weight:700; color:var(--pink); margin-bottom:4px; }
+  .glos-def  { font-size:12.5px; color:var(--text-muted); }
+
+  /* ─── PETA KONSEP SVG ─── */
+  .map-box {
+    background:white;
+    border:2px solid var(--pink-pale);
+    border-radius:20px;
+    padding:32px;
+    margin-top:20px;
+    overflow-x:auto;
+    box-shadow:var(--shadow);
+  }
+
+  /* ─── CONCEPT MAP (PjBL PHASES) ─── */
+  .pjbl-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px; }
+  .pjbl-card {
+    background:white;
+    border:2px solid var(--blue-pale);
+    border-radius:14px;
+    padding:18px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:transform .2s;
+  }
+  .pjbl-card:hover { transform:translateY(-3px); border-color:var(--blue); }
+  .pjbl-card .pjbl-num { font-family:'Fredoka',sans-serif; font-size:28px; font-weight:700; color:var(--blue); }
+  .pjbl-card h4 { color:var(--text); margin:4px 0 6px; font-size:13px; }
+  .pjbl-card p  { font-size:12px; color:var(--text-muted); margin:0; }
+
+  /* ─── REFLEKSI ─── */
+  .refleksi-item {
+    background:white;
+    border:2px solid var(--lav-pale);
+    border-radius:16px;
+    padding:22px 26px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+  }
+  .refleksi-q { font-family:'Fredoka',sans-serif; font-size:15px; font-weight:600; color:var(--lavender); margin-bottom:10px; }
+
+  /* ─── PUSTAKA ─── */
+  .pustaka-list { list-style:none; }
+  .pustaka-list li {
+    padding:11px 0 11px 24px;
+    border-bottom:1px dashed var(--pink-pale);
+    font-size:13.5px;
+    color:var(--text-muted);
+    position:relative;
+  }
+  .pustaka-list li::before { content:'🌸'; position:absolute; left:0; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align:center;
+    padding:48px 40px;
+    border-top:2px dashed var(--pink-pale);
+    background:linear-gradient(135deg,var(--pink-soft),var(--blue-soft));
+  }
+  footer p { font-size:12.5px; color:var(--text-muted); }
+  footer strong { color:var(--pink); }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background:var(--pink-soft); }
+  ::-webkit-scrollbar-thumb { background:var(--pink-pale); border-radius:3px; }
+  ::-webkit-scrollbar-thumb:hover { background:var(--pink); }
+
+  /* ─── MOBILE ─── */
+  .menu-toggle {
+    display:none;
+    position:fixed;
+    top:14px; left:14px;
+    z-index:200;
+    background:var(--pink);
+    border:none;
+    width:42px; height:42px;
+    border-radius:12px;
+    cursor:pointer;
+    flex-direction:column;
+    align-items:center; justify-content:center; gap:5px;
+    box-shadow:0 4px 16px rgba(255,107,157,.4);
+  }
+  .menu-toggle span { width:20px; height:2.5px; background:#fff; display:block; border-radius:2px; }
+
+  @media(max-width:900px) {
+    #sidebar { transform:translateX(-240px); }
+    #sidebar.open { transform:translateX(0); }
+    #main { margin-left:0; }
+    .section { padding:52px 22px; }
+    .toc-grid,.activity-grid,.rangkuman-grid,.glos-grid { grid-template-columns:1fr; }
+    .cover-meta { flex-direction:column; }
+    .cover-meta-item { border-right:none; border-bottom:1px solid var(--pink-pale); }
+    .menu-toggle { display:flex; }
+    #progress { left:0; }
+    .pjbl-grid { grid-template-columns:1fr; }
+  }
+
+  /* ─── BADGE PILL ─── */
+  .pill {
+    display:inline-block;
+    padding:3px 12px;
+    border-radius:100px;
+    font-size:12px;
+    font-weight:700;
+    margin:2px;
+    font-family:'Fredoka',sans-serif;
+  }
+  .pill-pink   { background:var(--pink-pale); color:var(--pink); }
+  .pill-blue   { background:var(--blue-pale); color:var(--blue); }
+  .pill-yellow { background:var(--yellow-pale); color:var(--yellow); }
+  .pill-mint   { background:var(--mint-pale); color:var(--mint); }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    display:flex; gap:14px;
+    padding:18px 20px;
+    border-radius:14px;
+    margin:16px 0;
+    align-items:flex-start;
+  }
+  .callout-warning { background:var(--yellow-soft); border:2px solid var(--yellow); }
+  .callout-info    { background:var(--blue-soft);   border:2px solid var(--blue-pale); }
+  .callout-success { background:var(--mint-pale);   border:2px solid var(--mint); }
+  .callout-danger  { background:var(--pink-soft);   border:2px solid var(--pink-pale); }
+  .callout-icon { font-size:22px; margin-top:2px; flex-shrink:0; }
+  .callout-body { flex:1; font-size:13.5px; }
+  .callout-body strong { display:block; font-family:'Fredoka',sans-serif; font-size:14px; margin-bottom:4px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="brand">
+    🌱 E-Modul Biologi
+    <span>SMA Fase F • Kelas XII</span>
+  </div>
+  <nav>
+    <div class="nav-section">Halaman Awal</div>
+    <a href="#cover"     class="active">🏠 Halaman Sampul</a>
+    <a href="#pengantar">📝 Kata Pengantar</a>
+    <a href="#identitas">📋 Identitas Modul</a>
+    <a href="#daftar-isi">📚 Daftar Isi</a>
+    <a href="#pendahuluan">🔍 Pendahuluan</a>
+    <a href="#peta-konsep">🗺️ Peta Konsep</a>
+    <div class="nav-section">Materi Inti</div>
+    <a href="#bab1">1 · Konsep Bioteknologi</a>
+    <a href="#bab2">2 · Bioteknologi Konvensional</a>
+    <a href="#bab3">3 · Tempe Benguk</a>
+    <a href="#bab4">4 · Fermentasi</a>
+    <a href="#bab5">5 · Permasalahan (PBL)</a>
+    <a href="#bab6">6 · Pembuatan Tempe</a>
+    <a href="#bab7">7 · Pengayaan L-DOPA</a>
+    <div class="nav-section">Kegiatan</div>
+    <a href="#kegiatan">🧪 Kegiatan Pembelajaran</a>
+    <a href="#pjbl">🚀 Proyek PjBL</a>
+    <div class="nav-section">Evaluasi</div>
+    <a href="#latihan">✏️ Latihan Soal</a>
+    <a href="#rangkuman">⭐ Rangkuman</a>
+    <a href="#refleksi">💭 Refleksi</a>
+    <div class="nav-section">Referensi</div>
+    <a href="#glosarium">📖 Glosarium</a>
+    <a href="#pustaka">📑 Daftar Pustaka</a>
+  </nav>
+</aside>
+
+<div id="progress"></div>
+<button class="menu-toggle" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+
+<main id="main">
+
+<!-- ① COVER -->
+<section id="cover">
+  <div class="cover-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+  <div class="floating-emoji" style="top:12%;left:8%;animation-delay:0s">🫘</div>
+  <div class="floating-emoji" style="top:18%;right:10%;animation-delay:.8s;font-size:2rem">🍄</div>
+  <div class="floating-emoji" style="bottom:20%;left:6%;animation-delay:1.5s;font-size:1.8rem">🌿</div>
+  <div class="floating-emoji" style="bottom:15%;right:8%;animation-delay:.4s">🔬</div>
+  <div class="floating-emoji" style="top:50%;right:5%;animation-delay:1.2s;font-size:1.6rem">🧬</div>
+  <div class="floating-emoji" style="top:42%;left:4%;animation-delay:.6s;font-size:1.6rem">🌸</div>
+
+  <div class="cover-content">
+    <div class="cover-badge">✨ E-Modul Biologi · SMA/MA · Kurikulum Merdeka</div>
+    <h1 class="cover-title">
+      Bioteknologi Konvensional<br>
+      <span class="accent-pink">Berbasis Fermentasi</span><br>
+      <span class="accent-blue">Tempe Benguk</span> ✨<br>
+      <span class="accent-yellow">Kulon Progo</span>
+    </h1>
+    <p class="cover-subtitle">untuk Meningkatkan Kemampuan Proses Sains Fase F SMA</p>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <label>Penyusun</label>
+        <span>Fauziyyah Fariidah Tyasari</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Pembimbing</label>
+        <span>Dr. Drs. Suyitno Aloysius, M.S.</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Pembimbing</label>
+        <span>Prof. Dr. Ir. Suhartini, M.S.</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Institusi</label>
+        <span>Magister Pend. Biologi UNY</span>
+      </div>
+      <div class="cover-meta-item">
+        <label>Tahun</label>
+        <span>2025 / 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Mulai membaca</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ② KATA PENGANTAR -->
+<section id="pengantar" class="section">
+  <div class="section-label">02</div>
+  <h2>🌸 Kata Pengantar</h2>
+  <div class="pengantar-box">
+    <p>Puji syukur ke hadirat Tuhan Yang Maha Esa atas limpahan rahmat dan karunia-Nya sehingga E-Modul Bioteknologi Konvensional dengan tema <strong>Tempe Benguk Kulon Progo</strong> ini dapat diselesaikan.</p>
+    <p>Tempe benguk merupakan produk fermentasi tradisional yang telah lama menjadi bagian dari khazanah kuliner masyarakat Kulon Progo, Daerah Istimewa Yogyakarta. Di balik kesederhanaannya, tempe benguk menyimpan kompleksitas ilmiah yang sangat menarik untuk dipelajari, khususnya terkait peran bioteknologi konvensional, proses fermentasi, dan tantangan keamanan pangan akibat kandungan <em>L-DOPA</em> pada biji benguk.</p>
+    <p>Modul ini dirancang dengan pendekatan <strong>Project-Based Learning (PjBL)</strong> dan <strong>Inkuiri Terbimbing</strong>, sehingga peserta didik tidak hanya memahami konsep secara teoritis, tetapi juga mampu berpikir kritis, merancang eksperimen, dan menganalisis permasalahan nyata di sekitar mereka. Konteks lokal Kulon Progo sengaja dipilih agar pembelajaran terasa bermakna dan relevan.</p>
+    <p>Harapan kami, modul ini dapat menjadi sumber belajar yang menarik, menantang, dan menginspirasi peserta didik untuk mencintai sains sekaligus melestarikan kearifan lokal daerahnya.</p>
+    <p style="margin-top:20px;color:var(--pink);font-family:'Fredoka',sans-serif;font-size:15px;font-weight:600">— Tim Penyusun 🌱</p>
+  </div>
+</section>
+
+<!-- ③ IDENTITAS MODUL -->
+<section id="identitas" class="section">
+  <div class="section-label">03</div>
+  <h2>📋 Identitas Modul</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Komponen</th><th>Keterangan</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nama Modul</strong></td><td>Bioteknologi Konvensional: Tempe Benguk Kulon Progo</td></tr>
+        <tr><td><strong>Mata Pelajaran</strong></td><td>Biologi</td></tr>
+        <tr><td><strong>Jenjang / Fase</strong></td><td>SMA / Fase F</td></tr>
+        <tr><td><strong>Kelas</strong></td><td>XII (Dua Belas)</td></tr>
+        <tr><td><strong>Semester</strong></td><td>Genap</td></tr>
+        <tr><td><strong>Alokasi Waktu</strong></td><td>6 × 45 menit (3 Pertemuan)</td></tr>
+        <tr><td><strong>Model Pembelajaran</strong></td><td>Project-Based Learning (PjBL) & Inkuiri Terbimbing</td></tr>
+        <tr><td><strong>Profil Pelajar Pancasila</strong></td><td><span class="pill pill-pink">Bernalar kritis</span> <span class="pill pill-blue">Kreatif</span> <span class="pill pill-mint">Bergotong-royong</span> <span class="pill pill-yellow">Beriman & bertakwa</span></td></tr>
+        <tr><td><strong>Konteks Lokal</strong></td><td>Kulon Progo, D.I. Yogyakarta</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎯 Capaian Pembelajaran</h3>
+  <div class="card card-blue">
+    <div class="card-label">Capaian Pembelajaran Fase F – Biologi</div>
+    <p style="margin:0">Peserta didik mampu mendeskripsikan konsep bioteknologi konvensional, menjelaskan mekanisme fermentasi oleh mikroorganisme, dan menganalisis dampak bioteknologi terhadap kesehatan, lingkungan, serta kemandirian ekonomi masyarakat.</p>
+    <div style="margin-top:10px"><span class="pill pill-blue">Pemahaman Biologi</span> <span class="pill pill-mint">Keterampilan Proses Sains</span></div>
+  </div>
+
+  <h3>✅ Tujuan Pembelajaran</h3>
+  <p>Setelah menyelesaikan modul ini, peserta didik diharapkan mampu:</p>
+  <ul>
+    <li>Menjelaskan pengertian, sejarah, dan prinsip dasar bioteknologi konvensional</li>
+    <li>Membedakan bioteknologi konvensional dan modern berdasarkan ciri dan contohnya</li>
+    <li>Mengidentifikasi karakteristik tanaman benguk (<em>Mucuna pruriens</em>) dan kandungan nutrisinya</li>
+    <li>Menjelaskan struktur kimia, fungsi, dan bahaya L-DOPA pada biji benguk</li>
+    <li>Mendeskripsikan mekanisme fermentasi tempe oleh <em>Rhizopus</em> sp.</li>
+    <li>Menganalisis penyebab kegagalan fermentasi tempe benguk dengan pendekatan PBL</li>
+    <li>Merancang dan melaksanakan prosedur pembuatan tempe benguk yang aman dan terstandarisasi</li>
+    <li>Menghubungkan pemanfaatan tempe benguk dengan kearifan lokal masyarakat Kulon Progo</li>
+  </ul>
+</section>
+
+<!-- ④ DAFTAR ISI -->
+<section id="daftar-isi" class="section">
+  <div class="section-label">04</div>
+  <h2>📚 Daftar Isi</h2>
+  <p>Navigasi seluruh konten e-modul melalui tautan di bawah ini! 🗺️</p>
+  <div class="toc-grid">
+    <a href="#pengantar"  class="toc-item"><span class="toc-num">02</span> Kata Pengantar</a>
+    <a href="#identitas"  class="toc-item"><span class="toc-num">03</span> Identitas Modul</a>
+    <a href="#pendahuluan" class="toc-item"><span class="toc-num">05</span> Pendahuluan</a>
+    <a href="#peta-konsep" class="toc-item"><span class="toc-num">06</span> Peta Konsep</a>
+    <a href="#bab1" class="toc-item"><span class="toc-num">A</span> Konsep Bioteknologi</a>
+    <a href="#bab2" class="toc-item"><span class="toc-num">B</span> Bioteknologi Konvensional</a>
+    <a href="#bab3" class="toc-item"><span class="toc-num">C</span> Tempe Benguk & L-DOPA</a>
+    <a href="#bab4" class="toc-item"><span class="toc-num">D</span> Fermentasi Tempe</a>
+    <a href="#bab5" class="toc-item"><span class="toc-num">E</span> Permasalahan PBL</a>
+    <a href="#bab6" class="toc-item"><span class="toc-num">F</span> Panduan Pembuatan</a>
+    <a href="#bab7" class="toc-item"><span class="toc-num">G</span> Pengayaan L-DOPA</a>
+    <a href="#kegiatan" class="toc-item"><span class="toc-num">H</span> Kegiatan Inkuiri</a>
+    <a href="#pjbl" class="toc-item"><span class="toc-num">I</span> Proyek PjBL</a>
+    <a href="#latihan" class="toc-item"><span class="toc-num">J</span> Latihan Soal</a>
+    <a href="#rangkuman" class="toc-item"><span class="toc-num">K</span> Rangkuman</a>
+    <a href="#refleksi" class="toc-item"><span class="toc-num">L</span> Refleksi Diri</a>
+    <a href="#glosarium" class="toc-item"><span class="toc-num">M</span> Glosarium</a>
+    <a href="#pustaka" class="toc-item"><span class="toc-num">N</span> Daftar Pustaka</a>
+  </div>
+</section>
+
+<!-- ⑤ PENDAHULUAN -->
+<section id="pendahuluan" class="section">
+  <div class="section-label">05</div>
+  <h2>🔍 Pendahuluan</h2>
+
+  <div class="callout callout-warning">
+    <div class="callout-icon">💬</div>
+    <div class="callout-body">
+      <strong>Fenomena Awal – Pertanyaan Pemantik</strong>
+      "Pak, kenapa ibu saya kemarin keracunan setelah makan tempe benguk yang beli di pasar?" — Seorang peserta didik di Kulon Progo. Tempe benguk yang dikonsumsi tidak melalui proses detoksifikasi yang benar. Biji benguk mengandung senyawa <em>L-DOPA</em> yang jika tidak dihilangkan dapat menyebabkan mual, muntah, bahkan gangguan saraf. Lantas, bagaimana bioteknologi konvensional berperan mengatasi masalah ini?
+    </div>
+  </div>
+
+  <h3>🌏 Keterkaitan dengan Kehidupan Sehari-Hari</h3>
+  <p>Tempe benguk adalah salah satu ikon kuliner khas Kulon Progo yang telah dikonsumsi selama berabad-abad. Makanan sederhana ini menyimpan kompleksitas ilmiah luar biasa: bagaimana biji benguk yang mengandung senyawa berbahaya dapat berubah menjadi tempe bergizi melalui proses fermentasi oleh jamur <em>Rhizopus</em> sp.</p>
+  <p>Proses ini adalah contoh nyata bioteknologi konvensional yang dipraktikkan masyarakat secara turun-temurun, jauh sebelum istilah 'bioteknologi' sendiri dikenal luas. Mempelajari tempe benguk berarti mempelajari sains yang hidup dalam budaya kita!</p>
+
+  <h3>📖 Petunjuk Penggunaan Modul</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+    <div class="card card-pink">
+      <div class="card-label">Untuk Guru 👩‍🏫</div>
+      <ul style="font-size:13px;padding-left:18px;margin:0">
+        <li>Baca seluruh modul sebelum pembelajaran</li>
+        <li>Gunakan fenomena awal (kasus L-DOPA) sebagai pemantik</li>
+        <li>Fasilitasi diskusi kelompok — hindari langsung memberi jawaban</li>
+        <li>Nilai proses berpikir, kolaborasi, dan komunikasi</li>
+      </ul>
+    </div>
+    <div class="card card-blue">
+      <div class="card-label">Untuk Peserta Didik 📚</div>
+      <ul style="font-size:13px;padding-left:18px;margin:0">
+        <li>Baca setiap bagian secara berurutan</li>
+        <li>Kerjakan pertanyaan refleksi dengan sungguh-sungguh</li>
+        <li>Jangan lewatkan 'Pertanyaan Kritis' di setiap bab</li>
+        <li>Hubungkan dengan kearifan lokal Kulon Progo</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ PETA KONSEP -->
+<section id="peta-konsep" class="section">
+  <div class="section-label">06</div>
+  <h2>🗺️ Peta Konsep</h2>
+  <p>Visual hubungan antar konsep utama dalam modul ini.</p>
+  <div class="map-box">
+    <svg viewBox="0 0 820 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;font-family:'Nunito',sans-serif">
+      <!-- Lines -->
+      <line x1="410" y1="75"  x2="180" y2="175" stroke="#FF6B9D" stroke-width="2" stroke-dasharray="6,3" opacity=".7"/>
+      <line x1="410" y1="75"  x2="640" y2="175" stroke="#4A90D9" stroke-width="2" stroke-dasharray="6,3" opacity=".7"/>
+      <line x1="180" y1="215" x2="80"  y2="320" stroke="#FF6B9D" stroke-width="1.5" opacity=".5"/>
+      <line x1="180" y1="215" x2="280" y2="320" stroke="#FF6B9D" stroke-width="1.5" opacity=".5"/>
+      <line x1="640" y1="215" x2="540" y2="320" stroke="#4A90D9" stroke-width="1.5" opacity=".5"/>
+      <line x1="640" y1="215" x2="740" y2="320" stroke="#4A90D9" stroke-width="1.5" opacity=".5"/>
+      <line x1="410" y1="75"  x2="410" y2="175" stroke="#FFBE0B" stroke-width="2" opacity=".7"/>
+      <line x1="410" y1="215" x2="410" y2="320" stroke="#FFBE0B" stroke-width="1.5" opacity=".5"/>
+
+      <!-- ROOT: BIOTEKNOLOGI -->
+      <rect x="280" y="20" width="260" height="55" rx="14" fill="#FF6B9D"/>
+      <text x="410" y="45" text-anchor="middle" fill="white" font-size="15" font-weight="800" font-family="Fredoka, sans-serif">BIOTEKNOLOGI</text>
+      <text x="410" y="64" text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="11">Tempe Benguk · Kulon Progo</text>
+
+      <!-- KONVENSIONAL -->
+      <rect x="60" y="175" width="240" height="55" rx="12" fill="#FFD6E8" stroke="#FF6B9D" stroke-width="2"/>
+      <text x="180" y="199" text-anchor="middle" fill="#D63070" font-size="13" font-weight="800" font-family="Fredoka, sans-serif">BIOTEKNOLOGI KONVENSIONAL</text>
+      <text x="180" y="217" text-anchor="middle" fill="#a05060" font-size="11">Fermentasi · Rhizopus sp.</text>
+
+      <!-- L-DOPA / KEAMANAN -->
+      <rect x="290" y="175" width="240" height="55" rx="12" fill="#FFF4CC" stroke="#FFBE0B" stroke-width="2"/>
+      <text x="410" y="199" text-anchor="middle" fill="#d48800" font-size="13" font-weight="800" font-family="Fredoka, sans-serif">L-DOPA &amp; KEAMANAN PANGAN</text>
+      <text x="410" y="217" text-anchor="middle" fill="#a06800" font-size="11">Detoksifikasi · Perendaman</text>
+
+      <!-- MODERN -->
+      <rect x="520" y="175" width="240" height="55" rx="12" fill="#C8E6FA" stroke="#4A90D9" stroke-width="2"/>
+      <text x="640" y="199" text-anchor="middle" fill="#1a5fa0" font-size="13" font-weight="800" font-family="Fredoka, sans-serif">BIOTEKNOLOGI MODERN</text>
+      <text x="640" y="217" text-anchor="middle" fill="#2060a0" font-size="11">Rekayasa Genetika · GMO</text>
+
+      <!-- Sub nodes row -->
+      <rect x="20"  y="320" width="145" height="45" rx="10" fill="white" stroke="#FFD6E8" stroke-width="1.5"/>
+      <text x="92"  y="340" text-anchor="middle" fill="#D63070" font-size="11" font-weight="700" font-family="Fredoka, sans-serif">Mucuna pruriens</text>
+      <text x="92"  y="357" text-anchor="middle" fill="#a05060" font-size="10">Biji Benguk</text>
+
+      <rect x="180" y="320" width="145" height="45" rx="10" fill="white" stroke="#FFD6E8" stroke-width="1.5"/>
+      <text x="252" y="340" text-anchor="middle" fill="#D63070" font-size="11" font-weight="700" font-family="Fredoka, sans-serif">Fermentasi Aerob</text>
+      <text x="252" y="357" text-anchor="middle" fill="#a05060" font-size="10">Enzim Protease + Oksidase</text>
+
+      <rect x="340" y="320" width="145" height="45" rx="10" fill="white" stroke="#FFF4CC" stroke-width="1.5"/>
+      <text x="412" y="340" text-anchor="middle" fill="#d48800" font-size="11" font-weight="700" font-family="Fredoka, sans-serif">Proses Detoksifikasi</text>
+      <text x="412" y="357" text-anchor="middle" fill="#a06800" font-size="10">Perendaman 24 jam</text>
+
+      <rect x="500" y="320" width="145" height="45" rx="10" fill="white" stroke="#C8E6FA" stroke-width="1.5"/>
+      <text x="572" y="340" text-anchor="middle" fill="#1a5fa0" font-size="11" font-weight="700" font-family="Fredoka, sans-serif">Tempe Benguk Aman</text>
+      <text x="572" y="357" text-anchor="middle" fill="#2060a0" font-size="10">Bergizi · L-DOPA &lt; 0,01%</text>
+
+      <rect x="660" y="320" width="145" height="45" rx="10" fill="white" stroke="#C8E6FA" stroke-width="1.5"/>
+      <text x="732" y="340" text-anchor="middle" fill="#1a5fa0" font-size="11" font-weight="700" font-family="Fredoka, sans-serif">Kearifan Lokal</text>
+      <text x="732" y="357" text-anchor="middle" fill="#2060a0" font-size="10">Kulon Progo · Tradisi</text>
+
+      <!-- Labels -->
+      <text x="275" y="150" fill="#FF6B9D" font-size="10" opacity=".8" text-anchor="middle">meliputi</text>
+      <text x="545" y="150" fill="#4A90D9" font-size="10" opacity=".8" text-anchor="middle">vs</text>
+      <text x="442" y="145" fill="#FFBE0B" font-size="10" opacity=".8">tantangan</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ─── MATERI INTI ─── -->
+
+<!-- BAB 1 -->
+<section id="bab1" class="section">
+  <div class="section-label">Materi A</div>
+  <h2>🔬 Konsep Bioteknologi</h2>
+
+  <h3>1.1 Pengertian Bioteknologi</h3>
+  <p>Bioteknologi berasal dari kata <em>bios</em> (hidup), <em>technos</em> (penerapan), dan <em>logos</em> (ilmu). Secara sederhana, bioteknologi adalah pemanfaatan organisme hidup atau bagian-bagiannya untuk menghasilkan produk atau jasa yang bermanfaat bagi manusia.</p>
+
+  <div class="card card-blue">
+    <div class="card-label">Definisi Formal – European Federation of Biotechnology</div>
+    <p style="margin:0">"Bioteknologi adalah integrasi ilmu pengetahuan alam dan ilmu rekayasa dengan tujuan memanfaatkan organisme hidup, sel, dan komponen seluler untuk menghasilkan produk dan jasa."</p>
+  </div>
+
+  <h3>1.2 Sejarah Singkat Bioteknologi</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Era</th><th>Perkembangan</th></tr></thead>
+      <tbody>
+        <tr><td><strong>± 8000 SM</strong></td><td>Pembuatan roti dan minuman fermentasi oleh masyarakat Mesopotamia dan Mesir</td></tr>
+        <tr><td><strong>± 6000 SM</strong></td><td>Pembuatan keju dan yoghurt di wilayah Timur Tengah</td></tr>
+        <tr><td><strong>1857</strong></td><td>Louis Pasteur menjelaskan ilmiah fermentasi oleh mikroorganisme</td></tr>
+        <tr><td><strong>1928</strong></td><td>Alexander Fleming menemukan penisilin dari jamur <em>Penicillium</em></td></tr>
+        <tr><td><strong>1973</strong></td><td>Rekombinasi DNA pertama — cikal bakal bioteknologi modern</td></tr>
+        <tr><td><strong>1982</strong></td><td>Insulin manusia dari bakteri rekombinan pertama kali diproduksi</td></tr>
+        <tr><td><strong>Masa kini</strong></td><td>CRISPR, terapi gen, vaksin mRNA, dan bioinformatika</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1.3 Prinsip Dasar Bioteknologi</h3>
+  <ul>
+    <li><strong>Penggunaan agen biologi hidup:</strong> Organisme, sel, atau komponen sel digunakan sebagai alat produksi</li>
+    <li><strong>Modifikasi proses biologis:</strong> Proses alami dioptimalkan untuk kebutuhan manusia</li>
+    <li><strong>Aplikasi untuk kemanfaatan:</strong> Produk akhir berupa bahan pangan, obat, energi, atau bahan industri</li>
+    <li><strong>Berbasis ilmu pengetahuan:</strong> Mengintegrasikan biologi, kimia, fisika, dan rekayasa</li>
+  </ul>
+</section>
+
+<!-- BAB 2 -->
+<section id="bab2" class="section">
+  <div class="section-label">Materi B</div>
+  <h2>🧫 Bioteknologi Konvensional</h2>
+
+  <h3>2.1 Pengertian</h3>
+  <p>Bioteknologi konvensional (tradisional) adalah penerapan bioteknologi yang menggunakan organisme secara langsung <strong>tanpa memanipulasi gen atau DNA-nya</strong>. Prosesnya mengandalkan kemampuan alami mikroorganisme seperti bakteri, ragi, dan jamur untuk mengubah substrat menjadi produk yang diinginkan.</p>
+
+  <h3>2.2 Ciri-Ciri</h3>
+  <ul>
+    <li>Menggunakan organisme hidup secara keseluruhan (bukan bagian gen)</li>
+    <li>Proses berlangsung secara alami tanpa rekayasa genetika</li>
+    <li>Telah dipraktikkan sejak ribuan tahun yang lalu</li>
+    <li>Peralatan dan teknologi yang digunakan relatif sederhana</li>
+    <li>Produk umumnya berupa pangan fermentasi</li>
+  </ul>
+
+  <h3>2.3 Contoh Produk</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Produk</th><th>Mikroorganisme</th><th>Substrat</th></tr></thead>
+      <tbody>
+        <tr><td>🫘 Tempe benguk</td><td><em>Rhizopus</em> sp.</td><td>Biji benguk</td></tr>
+        <tr><td>🍠 Tape</td><td><em>Saccharomyces cerevisiae</em></td><td>Singkong / ketan</td></tr>
+        <tr><td>🥛 Yoghurt</td><td><em>Lactobacillus bulgaricus</em></td><td>Susu</td></tr>
+        <tr><td>🧀 Keju</td><td><em>Lactococcus lactis</em></td><td>Susu</td></tr>
+        <tr><td>🍶 Kecap</td><td><em>Aspergillus oryzae</em></td><td>Kedelai</td></tr>
+        <tr><td>🥥 Nata de coco</td><td><em>Acetobacter xylinum</em></td><td>Air kelapa</td></tr>
+        <tr><td>🧡 Oncom</td><td><em>Neurospora sitophila</em></td><td>Ampas kacang</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.4 Perbandingan Konvensional vs Modern</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Konvensional 🌿</th><th>Modern 🔬</th></tr></thead>
+      <tbody>
+        <tr><td>Menggunakan organisme utuh</td><td>Menggunakan gen/DNA spesifik</td></tr>
+        <tr><td>Tanpa rekayasa genetika</td><td>Melibatkan rekayasa genetika (GMO)</td></tr>
+        <tr><td>Teknologi sederhana</td><td>Teknologi canggih (bioreaktor)</td></tr>
+        <tr><td>Produk pangan/fermentasi</td><td>Produk farmasi, bahan industri</td></tr>
+        <tr><td>Biaya relatif murah</td><td>Biaya sangat tinggi</td></tr>
+        <tr><td>Dipraktikkan ribuan tahun</td><td>Berkembang sejak 1970-an</td></tr>
+        <tr><td>Konsistensi produk rendah</td><td>Konsistensi produk tinggi</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BAB 3 -->
+<section id="bab3" class="section">
+  <div class="section-label">Materi C</div>
+  <h2>🫘 Tempe Benguk & L-DOPA</h2>
+
+  <h3>3.1 Tanaman Benguk (<em>Mucuna pruriens</em>)</h3>
+  <p>Benguk (<em>Mucuna pruriens</em>) adalah tanaman leguminosa yang tumbuh secara alami di berbagai wilayah tropis, termasuk Jawa. Di Kulon Progo, benguk telah lama dikenal sebagai bahan pangan alternatif yang murah dan bergizi tinggi, meskipun memerlukan pengolahan khusus sebelum dikonsumsi.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th colspan="2">Klasifikasi Ilmiah</th></tr></thead>
+        <tbody>
+          <tr><td>Kingdom</td><td>Plantae</td></tr>
+          <tr><td>Divisi</td><td>Magnoliophyta</td></tr>
+          <tr><td>Famili</td><td>Fabaceae</td></tr>
+          <tr><td>Genus</td><td><em>Mucuna</em></td></tr>
+          <tr><td>Spesies</td><td><em>Mucuna pruriens</em></td></tr>
+          <tr><td>Nama Lokal</td><td>Benguk, Koro Benguk</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th colspan="2">Kandungan Nutrisi per 100g</th></tr></thead>
+        <tbody>
+          <tr><td>Protein</td><td>23–29 gram</td></tr>
+          <tr><td>Karbohidrat</td><td>51–60 gram</td></tr>
+          <tr><td>Lemak</td><td>3–6 gram</td></tr>
+          <tr><td>Serat</td><td>8–10 gram</td></tr>
+          <tr><td>Kalsium</td><td>170–200 mg</td></tr>
+          <tr><td><strong>L-DOPA ⚠️</strong></td><td><strong>4–7% berat kering</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>3.2 Karakteristik Biji Benguk</h3>
+  <ul>
+    <li>Ukuran relatif besar (1–2 cm), lonjong pipih</li>
+    <li>Warna putih kehitaman dengan bercak-bercak</li>
+    <li>Tekstur keras dan padat sebelum direndam</li>
+    <li>Bau sedikit langu karena kandungan senyawa alkaloid</li>
+    <li>Kulit biji tebal dan keras, perlu dikupas sebelum fermentasi</li>
+  </ul>
+
+  <h3>3.3 Pemanfaatan Benguk</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+    <div class="card card-pink" style="flex:1;min-width:160px;padding:16px">
+      <div style="font-size:24px">🍱</div><strong>Pangan</strong>
+      <p style="font-size:13px;margin:4px 0 0">Tempe benguk, kripik benguk, sayur benguk</p>
+    </div>
+    <div class="card card-blue" style="flex:1;min-width:160px;padding:16px">
+      <div style="font-size:24px">🌱</div><strong>Pupuk Hijau</strong>
+      <p style="font-size:13px;margin:4px 0 0">Nodul akar untuk fiksasi nitrogen</p>
+    </div>
+    <div class="card card-mint" style="flex:1;min-width:160px;padding:16px">
+      <div style="font-size:24px">💊</div><strong>Farmasi</strong>
+      <p style="font-size:13px;margin:4px 0 0">Sumber L-DOPA alami untuk obat Parkinson</p>
+    </div>
+    <div class="card card-yellow" style="flex:1;min-width:160px;padding:16px">
+      <div style="font-size:24px">🐄</div><strong>Pakan Ternak</strong>
+      <p style="font-size:13px;margin:4px 0 0">Biji dan hijauan untuk ternak ruminansia</p>
+    </div>
+  </div>
+
+  <h3>⚠️ 3.4 L-DOPA: Senyawa Kritis dalam Benguk</h3>
+  <div class="card card-yellow">
+    <div class="card-label">Apa itu L-DOPA?</div>
+    <p>L-DOPA adalah singkatan dari <strong>L-3,4-dihydroxyphenylalanine</strong> — asam amino aromatik yang secara alami ditemukan dalam biji benguk dalam konsentrasi 4–7% berat kering. Rumus molekul: <code>C₉H₁₁NO₄</code>, berat molekul 197,19 g/mol.</p>
+    <p style="margin:0">Senyawa ini merupakan <strong>prekursor dopamin</strong> dalam tubuh manusia — di sinilah dua sisi mata uangnya!</p>
+  </div>
+
+  <div class="table-wrap" style="margin-top:14px">
+    <table>
+      <thead><tr><th>✅ Efek Positif L-DOPA</th><th>❌ Efek Negatif L-DOPA</th></tr></thead>
+      <tbody>
+        <tr><td>Prekursor dopamin dalam otak</td><td>Overstimulasi reseptor dopamin</td></tr>
+        <tr><td>Digunakan sebagai obat Parkinson (<em>Levodopa</em>)</td><td>Menyebabkan mual dan muntah hebat</td></tr>
+        <tr><td>Mengurangi gejala tremor dan kekakuan otot</td><td>Gangguan kardiovaskular</td></tr>
+        <tr><td>Sumber alami lebih baik dari sintesis kimia</td><td>Toksisitas neurologis dosis berlebihan</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-danger">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <strong>Bahaya Residu L-DOPA dalam Pangan</strong>
+      Jika tempe benguk tidak melalui detoksifikasi yang tepat, residu L-DOPA dapat menyebabkan: mual dan muntah (merangsang CTZ di batang otak), toksisitas akut, gangguan saraf pada paparan kronik, dan aritmia jantung. <strong>Standar aman: kandungan L-DOPA &lt; 0,01% berat.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- BAB 4 -->
+<section id="bab4" class="section">
+  <div class="section-label">Materi D</div>
+  <h2>🍄 Fermentasi Tempe Benguk</h2>
+
+  <h3>4.1 Pengertian Fermentasi</h3>
+  <p>Fermentasi adalah proses metabolisme di mana mikroorganisme mengurai substrat organik dengan bantuan enzim. Fermentasi tempe bersifat <strong>aerob</strong> — jamur <em>Rhizopus</em> sp. membutuhkan oksigen untuk tumbuh dan berkembang (berbeda dari fermentasi alkohol yang anaerob).</p>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Fermentasi Tempe ≠ Fermentasi Konvensional</strong>
+      Fermentasi tempe bersifat AEROB (butuh O₂). Produk utama bukan alkohol atau asam, melainkan miselium jamur yang mengikat biji-biji. Proses ini lebih tepat disebut 'fermentasi padat' (solid-state fermentation).
+    </div>
+  </div>
+
+  <h3>4.2 Mikroorganisme: <em>Rhizopus</em> sp.</h3>
+  <p>Jamur <em>Rhizopus</em> sp. adalah agen utama fermentasi tempe. Spesies yang umum digunakan:</p>
+  <ul>
+    <li><strong><em>Rhizopus oligosporus</em></strong> — paling umum, menghasilkan enzim protease dan lipase terbaik</li>
+    <li><strong><em>Rhizopus oryzae</em></strong> — toleran suhu lebih tinggi</li>
+    <li><strong><em>Rhizopus stolonifer</em></strong> — pertumbuhan cepat, sering ditemukan secara alami</li>
+  </ul>
+  <p><strong>Morfologi:</strong> hifa putih membentuk jaringan padat, sporangiofor membawa spora, rhizoid masuk ke substrat untuk menyerap nutrisi, stolon menghubungkan koloni.</p>
+
+  <h3>4.3 Peran Enzim dalam Fermentasi</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Enzim</th><th>Substrat yang Diurai</th><th>Produk / Efek</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Protease</strong></td><td>Protein (biji benguk)</td><td>Asam amino → nilai gizi meningkat</td></tr>
+        <tr><td><strong>Lipase</strong></td><td>Lemak (minyak biji)</td><td>Asam lemak bebas → rasa khas</td></tr>
+        <tr><td><strong>Amilase</strong></td><td>Pati / karbohidrat</td><td>Gula sederhana → energi jamur</td></tr>
+        <tr><td><strong>Fitase</strong></td><td>Asam fitat (anti-gizi)</td><td>Fitat terurai → penyerapan mineral meningkat</td></tr>
+        <tr><td><strong>Oksidase</strong></td><td>L-DOPA</td><td>Detoksifikasi parsial L-DOPA ✨</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.4 Faktor yang Memengaruhi Fermentasi</h3>
+  <div class="tab-wrap">
+    <div class="tab-btns">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-suhu')">🌡️ Suhu</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-ph')">⚗️ pH</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-lembab')">💧 Kelembapan</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-aerasi')">🌬️ Aerasi</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-waktu')">⏱️ Waktu</button>
+    </div>
+    <div id="tab-suhu" class="tab-panel active">
+      <h4>Suhu Optimal: 30–35°C</h4>
+      <ul>
+        <li>Di bawah 25°C: pertumbuhan terhambat, fermentasi lambat</li>
+        <li>30–35°C: pertumbuhan optimal Rhizopus sp. ✅</li>
+        <li>Di atas 38°C: enzim terdenaturasi, jamur mati, fermentasi gagal</li>
+        <li>Reaksi fermentasi menghasilkan panas (eksotermik) — perlu ventilasi</li>
+      </ul>
+    </div>
+    <div id="tab-ph" class="tab-panel">
+      <h4>pH Optimal: 5,5–6,5 (sedikit asam)</h4>
+      <ul>
+        <li>pH terlalu rendah (&lt; 4): pertumbuhan jamur terhambat</li>
+        <li>pH 5,5–6,5: kondisi optimal ✅</li>
+        <li>pH terlalu tinggi (&gt; 8): kontaminasi bakteri lebih mungkin terjadi</li>
+        <li>Perendaman biji membantu menurunkan pH ke kisaran optimal</li>
+      </ul>
+    </div>
+    <div id="tab-lembab" class="tab-panel">
+      <h4>Kelembapan Optimal: 70–80%</h4>
+      <ul>
+        <li>Terlalu lembab (&gt; 90%): mendorong pertumbuhan bakteri kontaminan</li>
+        <li>70–80%: miselium tumbuh optimal ✅</li>
+        <li>Terlalu kering (&lt; 60%): miselium tidak dapat tumbuh menembus biji</li>
+        <li>Penirisan setelah perendaman sangat krusial untuk mengatur kelembapan</li>
+      </ul>
+    </div>
+    <div id="tab-aerasi" class="tab-panel">
+      <h4>Aerasi (Ketersediaan Oksigen)</h4>
+      <ul>
+        <li>Rhizopus sp. adalah jamur <strong>aerob</strong> — membutuhkan O₂</li>
+        <li>Pembungkus daun pisang atau plastik berlubang memungkinkan sirkulasi udara</li>
+        <li>Tanpa aerasi cukup: fermentasi gagal, muncul aroma tidak sedap</li>
+      </ul>
+    </div>
+    <div id="tab-waktu" class="tab-panel">
+      <h4>Waktu Inkubasi Optimal: 36–48 Jam</h4>
+      <ul>
+        <li>&lt; 30 jam: miselium belum sempurna, biji tidak terikat erat</li>
+        <li>36–48 jam pada 30–32°C: tempe optimal ✅</li>
+        <li>&gt; 60 jam: over-fermentasi, aroma amonia muncul, tempe hitam</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>4.5 Diagram Variabel Fermentasi</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Variabel</th><th>⬇️ Kondisi Kurang</th><th>✅ Kondisi Optimal</th><th>⬆️ Kondisi Berlebih</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Suhu</strong></td><td>&lt;25°C → lambat</td><td>30–35°C</td><td>&gt;38°C → mati</td></tr>
+        <tr><td><strong>pH</strong></td><td>&lt;4 → terhambat</td><td>5,5–6,5</td><td>&gt;8 → kontaminasi</td></tr>
+        <tr><td><strong>Kelembapan</strong></td><td>&lt;60% → kering</td><td>70–80%</td><td>&gt;90% → busuk</td></tr>
+        <tr><td><strong>Waktu</strong></td><td>&lt;30 jam → belum jadi</td><td>36–48 jam</td><td>&gt;60 jam → over</td></tr>
+        <tr><td><strong>Inokulum</strong></td><td>&lt;0,5% → gagal</td><td>1–2%</td><td>&gt;5% → terlalu cepat</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BAB 5 -->
+<section id="bab5" class="section">
+  <div class="section-label">Materi E</div>
+  <h2>🧠 Permasalahan Biologi (PBL)</h2>
+
+  <div class="callout callout-warning">
+    <div class="callout-icon">📰</div>
+    <div class="callout-body">
+      <strong>Kasus Nyata – Kulon Progo, 2023</strong>
+      Seorang pedagang tempe benguk di Pasar Wates, Kulon Progo, menerima keluhan: beberapa pelanggan mengalami mual-mual, muntah, dan pusing setelah mengonsumsi tempe benguk. Ternyata pedagang tersebut mempersingkat perendaman biji dari 24 jam menjadi hanya 6 jam karena kekurangan waktu produksi — akibatnya kandungan L-DOPA tidak berkurang secara signifikan.
+    </div>
+  </div>
+
+  <h3>5.1 Analisis Penyebab Kegagalan Fermentasi</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px">
+    <div class="card card-pink">
+      <div class="card-label">❌ Penyebab 1</div>
+      <strong style="font-family:'Fredoka',sans-serif;font-size:14px">L-DOPA Belum Hilang</strong>
+      <ul style="font-size:12.5px;padding-left:16px;margin-top:8px">
+        <li>Perendaman terlalu singkat</li>
+        <li>Perebusan tidak mencapai 100°C</li>
+        <li>Air rebusan tidak diganti berkali-kali</li>
+        <li>Fermentasi tidak optimal → oksidase tidak bekerja</li>
+      </ul>
+    </div>
+    <div class="card card-yellow">
+      <div class="card-label">❌ Penyebab 2</div>
+      <strong style="font-family:'Fredoka',sans-serif;font-size:14px">Fermentasi Tidak Optimal</strong>
+      <ul style="font-size:12.5px;padding-left:16px;margin-top:8px">
+        <li>Ragi kedaluwarsa / tidak aktif</li>
+        <li>Suhu inkubasi tidak terkontrol</li>
+        <li>Kelembapan tidak sesuai</li>
+        <li>Sirkulasi udara terhambat</li>
+      </ul>
+    </div>
+    <div class="card card-blue">
+      <div class="card-label">❌ Penyebab 3</div>
+      <strong style="font-family:'Fredoka',sans-serif;font-size:14px">Kontaminasi Mikroba</strong>
+      <ul style="font-size:12.5px;padding-left:16px;margin-top:8px">
+        <li>Peralatan tidak steril</li>
+        <li>Air yang digunakan terkontaminasi</li>
+        <li>Lingkungan produksi tidak higienis</li>
+        <li>Ragi terkontaminasi jamur lain</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>5.2 Rumusan Masalah & Hipotesis</h3>
+  <div class="card card-lav">
+    <div class="card-label">🧠 Rumusan Masalah</div>
+    <ol style="padding-left:18px;margin:0;font-size:13.5px">
+      <li>Bagaimana pengaruh lama perendaman biji benguk terhadap kadar L-DOPA yang tersisa?</li>
+      <li>Apakah suhu dan waktu perebusan memengaruhi efektivitas detoksifikasi L-DOPA?</li>
+      <li>Bagaimana hubungan antara kualitas fermentasi dan keamanan tempe benguk?</li>
+      <li>Faktor apa yang paling dominan menyebabkan kegagalan fermentasi tempe benguk?</li>
+    </ol>
+  </div>
+  <div class="card card-mint" style="margin-top:10px">
+    <div class="card-label">💡 Hipotesis (Contoh)</div>
+    <ul style="padding-left:18px;margin:0;font-size:13.5px">
+      <li><strong>H1:</strong> Semakin lama perendaman (12, 24, 36 jam), semakin rendah kadar L-DOPA yang tersisa</li>
+      <li><strong>H2:</strong> Perebusan 100°C selama 30 menit lebih efektif mengurangi L-DOPA dibanding 80°C</li>
+      <li><strong>H3:</strong> Tempe benguk dengan fermentasi optimal (36–48 jam, 30–32°C) memiliki L-DOPA &lt; 0,01%</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BAB 6 -->
+<section id="bab6" class="section">
+  <div class="section-label">Materi F</div>
+  <h2>👩‍🍳 Panduan Pembuatan Tempe Benguk</h2>
+
+  <div class="card card-pink">
+    <div class="card-label">Dua Prinsip Utama</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px">
+      <div><strong>1️⃣ DETOKSIFIKASI</strong><br><span style="font-size:13px">Menghilangkan L-DOPA hingga batas aman melalui perendaman bertahap, perebusan berulang, dan penggantian air.</span></div>
+      <div><strong>2️⃣ FERMENTASI</strong><br><span style="font-size:13px">Menumbuhkan <em>Rhizopus</em> sp. untuk mengubah komposisi nutrisi biji benguk melalui inokulasi ragi dan inkubasi optimal.</span></div>
+    </div>
+  </div>
+
+  <h3>Alat & Bahan</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="card card-yellow">
+      <div class="card-label">Bahan 🧪</div>
+      <ul style="font-size:13px;padding-left:16px;margin:0">
+        <li>Biji benguk kering: 500 gram</li>
+        <li>Ragi tempe (<em>Rhizopus</em> sp.): 2 gram (0,4%)</li>
+        <li>Air bersih: secukupnya</li>
+        <li>Daun pisang / plastik PE berlubang</li>
+      </ul>
+    </div>
+    <div class="card card-blue">
+      <div class="card-label">Alat 🔧</div>
+      <ul style="font-size:13px;padding-left:16px;margin:0">
+        <li>Wadah perendam (baskom besar)</li>
+        <li>Panci perebus & kompor</li>
+        <li>Saringan / tampah</li>
+        <li>Termometer ruang & timer</li>
+        <li>Plastik PE + jarum untuk lubang</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Prosedur Step-by-Step</h3>
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>🫧 Perendaman Awal (24 Jam)</h4>
+        <ul><li>Cuci biji benguk hingga bersih</li><li>Rendam dalam air bersih selama <strong>24 jam</strong></li><li>Ganti air rendaman setiap 8 jam sekali</li><li>Tujuan: Mengurangi L-DOPA yang larut dalam air</li></ul>
+        <div class="callout callout-danger" style="margin-top:8px;padding:10px 14px"><div class="callout-icon" style="font-size:16px">⚠️</div><div class="callout-body" style="font-size:12.5px">Jangan kurangi waktu perendaman! Ini krusial untuk keamanan pangan.</div></div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>🔥 Perebusan Pertama (30 Menit, 100°C)</h4>
+        <ul><li>Tiriskan biji dari air rendaman</li><li>Rebus dalam air mendidih (100°C) selama 30 menit</li><li>Buang air rebusan pertama</li><li>Tujuan: Denaturasi enzim, sterilisasi parsial, penghilangan L-DOPA tahap 2</li></ul>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>🫶 Penghilangan Kulit & Perebusan Kedua</h4>
+        <ul><li>Kupas atau gosok biji benguk untuk melepaskan kulit luar</li><li>Bilas dengan air bersih 2–3 kali</li><li>Rebus kembali dengan air baru selama 15–20 menit</li></ul>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>💨 Penirisan & Pendinginan</h4>
+        <ul><li>Tiriskan biji selama 30–60 menit pada tampah bersih</li><li>Angin-anginkan hingga permukaan biji kering (tidak ada air bergenang)</li><li>Dinginkan hingga suhu ruang (&lt; 35°C)</li></ul>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>🧂 Inokulasi Ragi</h4>
+        <ul><li>Taburkan ragi tempe (2 gram per 500 gram biji) secara merata</li><li>Aduk hingga semua biji terlapisi ragi</li><li>Gunakan ragi yang masih aktif (cek tanggal kedaluwarsa)</li></ul>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h4>🌯 Pembungkusan & Inkubasi (36–48 Jam)</h4>
+        <ul><li>Bungkus biji dengan daun pisang atau plastik PE berlubang</li><li>Buat lubang kecil (diameter 2 mm) setiap 2 cm pada plastik</li><li>Simpan pada suhu 30–32°C selama 36–48 jam</li><li>Periksa miselium putih setelah 36 jam</li></ul>
+        <div class="callout callout-success" style="margin-top:8px;padding:10px 14px"><div class="callout-icon" style="font-size:16px">✅</div><div class="callout-body" style="font-size:12.5px">Tempe jadi ditandai: miselium putih tebal, aroma khas, biji terikat kompak!</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAB 7 -->
+<section id="bab7" class="section">
+  <div class="section-label">Materi G</div>
+  <h2>🔬 Pengayaan: L-DOPA, Racun atau Obat?</h2>
+
+  <h3>7.1 Mengapa L-DOPA Bisa Beracun?</h3>
+  <p>L-DOPA dapat melewati <strong>sawar darah-otak</strong> (blood-brain barrier/BBB) dan terkonversi menjadi dopamin di dalam otak. Pada orang sehat, paparan L-DOPA dari pangan tidak tepat akan menyebabkan:</p>
+  <ul>
+    <li>Kelebihan dopamin di striatum → diskinesia (gerakan tidak terkontrol)</li>
+    <li>Stimulasi reseptor dopamin di zona pemicu kemoreseptor → mual dan muntah</li>
+    <li>Fluktuasi kadar dopamin → efek <em>on-off</em> yang tidak stabil</li>
+  </ul>
+
+  <h3>7.2 Bagaimana Fermentasi Mengurangi L-DOPA?</h3>
+  <div class="timeline">
+    <div class="tl-event">
+      <div class="tl-label">Tahap 1: Perendaman</div>
+      <p>L-DOPA larut dalam air perendaman (bersifat hidrofilik). Penggantian air setiap 8 jam membuang L-DOPA yang telah terlarut. <strong>Efektivitas: mengurangi 40–60% L-DOPA.</strong></p>
+    </div>
+    <div class="tl-event">
+      <div class="tl-label">Tahap 2: Perebusan</div>
+      <p>Panas (100°C) menyebabkan denaturasi L-DOPA dan menginaktivasi enzim tanaman. Penggantian air rebusan mencuci sisa L-DOPA yang lepas. <strong>Efektivitas: mengurangi tambahan 20–30%.</strong></p>
+    </div>
+    <div class="tl-event">
+      <div class="tl-label">Tahap 3: Fermentasi</div>
+      <p>Enzim oksidase Rhizopus sp. mengoksidasi L-DOPA menjadi dopaminequinone (tidak aktif secara biologis). Proteolisis oleh protease memecah senyawa turunan L-DOPA. <strong>Efektivitas: mengurangi tambahan 10–20% — membawa total ke &lt; 0,01%.</strong></p>
+    </div>
+  </div>
+
+  <div class="callout callout-success">
+    <div class="callout-icon">🎉</div>
+    <div class="callout-body">
+      <strong>Kombinasi Ketiga Tahap = Tempe Benguk yang Aman!</strong>
+      Total reduksi L-DOPA melalui proses lengkap (perendaman + perebusan + fermentasi) dapat mencapai 90–99%, membawa kadar L-DOPA dari 4–7% menjadi &lt; 0,01% berat — di bawah ambang batas aman konsumsi manusia.
+    </div>
+  </div>
+</section>
+
+<!-- KEGIATAN PEMBELAJARAN -->
+<section id="kegiatan" class="section">
+  <div class="section-label">Kegiatan H</div>
+  <h2>🧪 Kegiatan Pembelajaran (Inkuiri Terbimbing)</h2>
+
+  <div class="card card-blue" style="margin-bottom:16px">
+    <div class="card-label">Info Kegiatan 1</div>
+    <p style="margin:0;font-size:13.5px">Alokasi Waktu: 90 menit | Metode: Diskusi kelompok, studi literatur | Kelompok: 4–5 peserta didik | Target: Merumuskan masalah dan hipotesis terkait fermentasi tempe benguk</p>
+  </div>
+
+  <h3>Tabel Pengamatan Fermentasi</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Waktu</th><th>Warna Miselium</th><th>Tekstur Tempe</th><th>Aroma</th><th>Catatan Lain</th></tr></thead>
+      <tbody>
+        <tr><td>0 jam</td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td></tr>
+        <tr><td>12 jam</td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td></tr>
+        <tr><td>24 jam</td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td></tr>
+        <tr><td>36 jam</td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td></tr>
+        <tr><td>48 jam</td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td><td><textarea class="essay-area" style="min-height:40px;font-size:12px"></textarea></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Aktivitas Pembelajaran</h3>
+  <div class="activity-grid">
+    <div class="activity-card">
+      <div class="activity-icon">💬</div>
+      <h4>Diskusi Kelompok</h4>
+      <p>Diskusikan: "Mengapa ibu Bu Sari bisa keracunan tempe benguk?" Identifikasi semua faktor yang mungkin menyebabkan kandungan L-DOPA tetap tinggi.</p>
+    </div>
+    <div class="activity-card">
+      <div class="activity-icon">🔍</div>
+      <h4>Studi Literatur</h4>
+      <p>Cari referensi ilmiah tentang metode detoksifikasi L-DOPA. Bandingkan efektivitas berbagai metode: perendaman, perebusan, dan fermentasi.</p>
+    </div>
+    <div class="activity-card">
+      <div class="activity-icon">🧪</div>
+      <h4>Eksperimen Sederhana</h4>
+      <p>Rancang eksperimen untuk menguji pengaruh waktu perendaman (6, 12, 24 jam) terhadap keamanan tempe benguk. Buat variabel, hipotesis, dan prosedurnya!</p>
+    </div>
+    <div class="activity-card">
+      <div class="activity-icon">📊</div>
+      <h4>Analisis Data</h4>
+      <p>Bandingkan hasil fermentasi antara kelompok dengan perlakuan berbeda. Kelompok mana yang menghasilkan miselium paling tebal dan aroma paling khas?</p>
+    </div>
+  </div>
+</section>
+
+<!-- PjBL -->
+<section id="pjbl" class="section">
+  <div class="section-label">Kegiatan I</div>
+  <h2>🚀 Proyek PjBL: Inovasi Tempe Benguk</h2>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-body">
+      <strong>Pertanyaan Pemandu Proyek (Driving Question)</strong>
+      "Bagaimana kita dapat berinovasi dalam proses pembuatan tempe benguk Kulon Progo agar lebih aman dikonsumsi, lebih bergizi, dan memiliki nilai jual yang lebih tinggi, sehingga dapat mendukung ketahanan pangan dan ekonomi masyarakat lokal?"
+    </div>
+  </div>
+
+  <h3>Pilihan Fokus Proyek</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+    <div class="card card-pink"><div class="card-label">Opsi A</div><strong>Inovasi Detoksifikasi</strong><p style="font-size:13px;margin-top:6px">Menemukan metode detoksifikasi L-DOPA yang lebih efisien (waktu lebih singkat, hasil lebih optimal)</p></div>
+    <div class="card card-blue"><div class="card-label">Opsi B</div><strong>Diversifikasi Produk</strong><p style="font-size:13px;margin-top:6px">Mengolah tempe benguk menjadi produk turunan baru (nugget, keripik, tepung tempe benguk)</p></div>
+    <div class="card card-mint"><div class="card-label">Opsi C</div><strong>Standarisasi SOP</strong><p style="font-size:13px;margin-top:6px">Menyusun SOP pembuatan tempe benguk berbasis sains untuk UMKM Kulon Progo</p></div>
+    <div class="card card-yellow"><div class="card-label">Opsi D</div><strong>Kemasan & Branding</strong><p style="font-size:13px;margin-top:6px">Merancang kemasan dan strategi pemasaran tempe benguk yang menarik dan informatif</p></div>
+  </div>
+
+  <h3>6 Tahap PjBL</h3>
+  <div class="pjbl-grid">
+    <div class="pjbl-card"><div class="pjbl-num">1</div><h4>Penentuan Proyek</h4><p>Pahami konteks, pilih fokus proyek, rumuskan masalah nyata (20 mnt)</p></div>
+    <div class="pjbl-card"><div class="pjbl-num">2</div><h4>Perancangan</h4><p>Tetapkan tujuan SMART, rancang metode, bagi tugas (30 mnt)</p></div>
+    <div class="pjbl-card"><div class="pjbl-num">3</div><h4>Penyusunan Jadwal</h4><p>Buat timeline 3 minggu, tentukan milestone (15 mnt)</p></div>
+    <div class="pjbl-card"><div class="pjbl-num">4</div><h4>Pemantauan</h4><p>Isi log harian, diskusikan hambatan bersama guru (Minggu 1–3)</p></div>
+    <div class="pjbl-card"><div class="pjbl-num">5</div><h4>Pengujian & Evaluasi</h4><p>Presentasikan hasil, pamerkan poster, terima umpan balik (60 mnt)</p></div>
+    <div class="pjbl-card"><div class="pjbl-num">6</div><h4>Refleksi Akhir</h4><p>Evaluasi proses PjBL, buat aksi nyata untuk Kulon Progo (30 mnt)</p></div>
+  </div>
+
+  <div class="callout callout-success" style="margin-top:20px">
+    <div class="callout-icon">🌱</div>
+    <div class="callout-body">
+      <strong>Aksi Nyata untuk Kulon Progo!</strong>
+      Bagikan SOP hasil proyek kepada pengrajin tempe benguk di pasar atau UMKM setempat · Tampilkan poster ilmiah di majalah dinding sekolah · Dokumentasikan dalam video pendek dan unggah ke media sosial sekolah · Usulkan inovasimu kepada Dinas Ketahanan Pangan Kulon Progo 🎉
+    </div>
+  </div>
+</section>
+
+<!-- LATIHAN SOAL -->
+<section id="latihan" class="section">
+  <div class="section-label">Evaluasi J</div>
+  <h2>✏️ Latihan Soal & Evaluasi</h2>
+
+  <h3>A. Pilihan Ganda</h3>
+  <ul class="soal-list">
+    <li class="soal-item">
+      <span class="soal-num">SOAL 01</span>
+      <p>Senyawa yang bertanggung jawab atas toksisitas biji benguk jika tidak diolah dengan benar adalah…</p>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">A</span>Asam fitat</div>
+        <div class="option" onclick="checkAnswer(this,'correct')"><span class="option-letter">B</span>L-DOPA</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">C</span>Tanin</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">D</span>Saponin</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">E</span>Oksalat</div>
+      </div>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">SOAL 02</span>
+      <p>Mikroorganisme utama yang berperan dalam fermentasi tempe benguk adalah…</p>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">A</span><em>Saccharomyces cerevisiae</em></div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">B</span><em>Lactobacillus acidophilus</em></div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">C</span><em>Aspergillus niger</em></div>
+        <div class="option" onclick="checkAnswer(this,'correct')"><span class="option-letter">D</span><em>Rhizopus oligosporus</em></div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">E</span><em>Acetobacter xylinum</em></div>
+      </div>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">SOAL 03</span>
+      <p>Suhu optimal untuk pertumbuhan <em>Rhizopus</em> sp. selama fermentasi tempe adalah…</p>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">A</span>15–20°C</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">B</span>20–25°C</div>
+        <div class="option" onclick="checkAnswer(this,'correct')"><span class="option-letter">C</span>30–35°C</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">D</span>40–45°C</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">E</span>50–55°C</div>
+      </div>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">SOAL 04</span>
+      <p>Enzim yang berperan dalam detoksifikasi L-DOPA selama fermentasi tempe benguk adalah…</p>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">A</span>Protease</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">B</span>Lipase</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">C</span>Amilase</div>
+        <div class="option" onclick="checkAnswer(this,'correct')"><span class="option-letter">D</span>Oksidase</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">E</span>Fitase</div>
+      </div>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">SOAL 05</span>
+      <p>Alasan utama mengapa perendaman biji benguk harus dilakukan minimal 24 jam adalah…</p>
+      <div class="options">
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">A</span>Melunakkan kulit biji agar mudah dikupas</div>
+        <div class="option" onclick="checkAnswer(this,'correct')"><span class="option-letter">B</span>Melarutkan L-DOPA yang terkandung dalam biji</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">C</span>Mengaktifkan spora <em>Rhizopus</em> sp.</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">D</span>Meningkatkan kadar protein biji</div>
+        <div class="option" onclick="checkAnswer(this,'wrong')"><span class="option-letter">E</span>Mensterilkan biji dari bakteri patogen</div>
+      </div>
+    </li>
+  </ul>
+
+  <h3 style="margin-top:32px">B. Soal Esai</h3>
+  <ul class="soal-list">
+    <li class="soal-item">
+      <span class="soal-num">ESAI 01</span>
+      <p>Jelaskan perbedaan mendasar antara bioteknologi konvensional dan bioteknologi modern! Berikan masing-masing 3 contoh produk!</p>
+      <textarea class="essay-area" placeholder="Tulis jawabanmu di sini… 📝"></textarea>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">ESAI 02</span>
+      <p>Mengapa tempe benguk dianggap sebagai produk bioteknologi konvensional? Jelaskan peran <em>Rhizopus</em> sp. dalam proses pembuatannya!</p>
+      <textarea class="essay-area" placeholder="Tulis jawabanmu di sini… 📝"></textarea>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">ESAI 03</span>
+      <p>Apa yang dimaksud dengan L-DOPA? Jelaskan dua sisinya — sebagai senyawa berbahaya dalam pangan dan sebagai senyawa bermanfaat dalam dunia medis!</p>
+      <textarea class="essay-area" placeholder="Tulis jawabanmu di sini… 📝"></textarea>
+    </li>
+  </ul>
+
+  <h3 style="margin-top:32px">C. Studi Kasus 🔎</h3>
+  <div class="card card-pink">
+    <div class="card-label">Studi Kasus: Tempe Benguk Bu Sari</div>
+    <p>Bu Sari adalah produsen tempe benguk di Desa Sentolo, Kulon Progo. Karena permintaan meningkat menjelang lebaran, ia mempersingkat prosesnya:</p>
+    <ul>
+      <li>Perendaman hanya 8 jam (biasanya 24 jam)</li>
+      <li>Perebusan hanya 1 kali (biasanya 2 kali)</li>
+      <li>Inkubasi dipercepat di dekat kompor (suhu ~40°C)</li>
+    </ul>
+    <p style="margin-top:8px;margin-bottom:0">Hasilnya: 30% pembeli mengeluh mual. Tempe tidak kompak dan berbau menyengat.</p>
+  </div>
+  <ul class="soal-list" style="margin-top:12px">
+    <li class="soal-item">
+      <span class="soal-num">KASUS 01</span>
+      <p>Identifikasi semua kesalahan dalam proses produksi Bu Sari dan jelaskan dampak biologis dari setiap kesalahan tersebut!</p>
+      <textarea class="essay-area" placeholder="Tulis analisismu… 🔬"></textarea>
+    </li>
+    <li class="soal-item">
+      <span class="soal-num">KASUS 02</span>
+      <p>Berikan rekomendasi SOP (Standard Operating Procedure) yang benar kepada Bu Sari agar tempe benguknya aman dikonsumsi!</p>
+      <textarea class="essay-area" placeholder="Tulis rekomendasimu… 📋"></textarea>
+    </li>
+  </ul>
+</section>
+
+<!-- RANGKUMAN -->
+<section id="rangkuman" class="section">
+  <div class="section-label">Evaluasi K</div>
+  <h2>⭐ Rangkuman</h2>
+  <div class="rangkuman-grid">
+    <div class="rangkuman-card">
+      <div class="icon">🔬</div>
+      <h4>Bioteknologi</h4>
+      <p>Bioteknologi konvensional memanfaatkan organisme hidup tanpa rekayasa gen untuk menghasilkan produk bermanfaat.</p>
+    </div>
+    <div class="rangkuman-card">
+      <div class="icon">🫘</div>
+      <h4>Benguk</h4>
+      <p>Tempe benguk adalah produk bioteknologi konvensional khas Kulon Progo berbahan biji <em>Mucuna pruriens</em>.</p>
+    </div>
+    <div class="rangkuman-card">
+      <div class="icon">⚠️</div>
+      <h4>L-DOPA</h4>
+      <p>L-DOPA bersifat toksik pada konsentrasi tinggi, namun bernilai medis sebagai obat Parkinson jika tepat.</p>
+    </div>
+    <div class="rangkuman-card">
+      <div class="icon">🫧</div>
+      <h4>Detoksifikasi</h4>
+      <p>Wajib dilakukan melalui perendaman 24 jam dan perebusan berulang sebelum fermentasi.</p>
+    </div>
+    <div class="rangkuman-card">
+      <div class="icon">🍄</div>
+      <h4>Fermentasi</h4>
+      <p>Rhizopus sp. menghasilkan enzim protease, lipase, amilase, fitase, dan oksidase yang krusial.</p>
+    </div>
+    <div class="rangkuman-card">
+      <div class="icon">🌸</div>
+      <h4>Kearifan Lokal</h4>
+      <p>Tempe benguk adalah warisan budaya Kulon Progo yang perlu dilestarikan dan dikembangkan secara ilmiah!</p>
+    </div>
+  </div>
+
+  <div class="card card-mint" style="margin-top:20px">
+    <div class="card-label">✅ Poin Kunci</div>
+    <ul style="font-size:13.5px;padding-left:18px;margin:0">
+      <li>Faktor fermentasi optimal: suhu 30–35°C, pH 5,5–6,5, kelembapan 70–80%, waktu 36–48 jam</li>
+      <li>Kegagalan fermentasi tempe benguk: L-DOPA tidak hilang, kondisi tidak optimal, atau kontaminasi</li>
+      <li>Total reduksi L-DOPA melalui proses lengkap dapat mencapai 90–99%</li>
+    </ul>
+  </div>
+</section>
+
+<!-- REFLEKSI -->
+<section id="refleksi" class="section">
+  <div class="section-label">Evaluasi L</div>
+  <h2>💭 Refleksi Diri</h2>
+  <p>Luangkan waktu sejenak untuk merenungkan apa yang telah kamu pelajari, ya! 🌸</p>
+
+  <div class="refleksi-item">
+    <p class="refleksi-q">Apa hal paling mengejutkan yang kamu pelajari tentang tempe benguk dan L-DOPA?</p>
+    <textarea class="essay-area" placeholder="Tuliskan refleksimu… 💭"></textarea>
+  </div>
+  <div class="refleksi-item">
+    <p class="refleksi-q">Bagaimana perasaanmu mengetahui bahwa makanan tradisional seperti tempe benguk ternyata menyimpan ilmu sains yang begitu kompleks?</p>
+    <textarea class="essay-area" placeholder="Tuliskan refleksimu… 🌱"></textarea>
+  </div>
+  <div class="refleksi-item">
+    <p class="refleksi-q">Apa yang bisa kamu lakukan sebagai pelajar untuk turut melestarikan dan mengembangkan kearifan lokal Kulon Progo?</p>
+    <textarea class="essay-area" placeholder="Tuliskan refleksimu… ✨"></textarea>
+  </div>
+  <div class="refleksi-item">
+    <p class="refleksi-q">Konsep mana yang menurutmu paling sulit dipahami? Apa strategi belajarmu ke depan?</p>
+    <textarea class="essay-area" placeholder="Tuliskan refleksimu… 📚"></textarea>
+  </div>
+</section>
+
+<!-- GLOSARIUM -->
+<section id="glosarium" class="section">
+  <div class="section-label">Referensi M</div>
+  <h2>📖 Glosarium</h2>
+  <div class="glos-grid">
+    <div class="glos-item"><div class="glos-term">BIOTEKNOLOGI</div><div class="glos-def">Pemanfaatan organisme hidup atau komponen seluler untuk menghasilkan produk bermanfaat bagi manusia.</div></div>
+    <div class="glos-item"><div class="glos-term">BIOTEKNOLOGI KONVENSIONAL</div><div class="glos-def">Bioteknologi tanpa rekayasa genetika, menggunakan organisme secara alami.</div></div>
+    <div class="glos-item"><div class="glos-term">DETOKSIFIKASI</div><div class="glos-def">Proses penghilangan atau pengurangan senyawa toksik dari suatu bahan.</div></div>
+    <div class="glos-item"><div class="glos-term">DOPAMIN</div><div class="glos-def">Neurotransmitter otak yang mengatur gerakan, mood, dan sistem reward.</div></div>
+    <div class="glos-item"><div class="glos-term">ENZIM</div><div class="glos-def">Protein yang berfungsi sebagai katalis (mempercepat reaksi kimia) dalam tubuh.</div></div>
+    <div class="glos-item"><div class="glos-term">FERMENTASI</div><div class="glos-def">Proses metabolisme mikroorganisme yang menguraikan substrat organik menjadi produk.</div></div>
+    <div class="glos-item"><div class="glos-term">INOKULASI</div><div class="glos-def">Proses memasukkan agen mikroba ke dalam substrat fermentasi.</div></div>
+    <div class="glos-item"><div class="glos-term">INKUBASI</div><div class="glos-def">Proses penyimpanan pada kondisi optimal untuk pertumbuhan mikroba.</div></div>
+    <div class="glos-item"><div class="glos-term">L-DOPA</div><div class="glos-def">L-3,4-dihydroxyphenylalanine; asam amino aromatik, prekursor dopamin, kandungan kritis benguk.</div></div>
+    <div class="glos-item"><div class="glos-term">MISELIUM</div><div class="glos-def">Jaringan hifa (benang jamur) yang membentuk struktur tubuh jamur dan mengikat biji tempe.</div></div>
+    <div class="glos-item"><div class="glos-term">MUCUNA PRURIENS</div><div class="glos-def">Nama ilmiah tanaman benguk, leguminosa yang bijinya digunakan untuk tempe benguk.</div></div>
+    <div class="glos-item"><div class="glos-term">PREKURSOR</div><div class="glos-def">Senyawa yang menjadi bahan baku untuk pembentukan senyawa lain.</div></div>
+    <div class="glos-item"><div class="glos-term">RHIZOPUS SP.</div><div class="glos-def">Genus jamur yang merupakan agen fermentasi utama dalam pembuatan tempe benguk.</div></div>
+    <div class="glos-item"><div class="glos-term">SAWAR DARAH-OTAK</div><div class="glos-def">Blood-brain barrier (BBB); lapisan pelindung yang memisahkan otak dari sirkulasi darah.</div></div>
+    <div class="glos-item"><div class="glos-term">SUBSTRAT</div><div class="glos-def">Bahan yang digunakan sebagai media pertumbuhan atau yang diurai oleh mikroorganisme.</div></div>
+    <div class="glos-item"><div class="glos-term">TEMPE BENGUK</div><div class="glos-def">Produk fermentasi tradisional berbahan dasar biji benguk, ikon khas kuliner Kulon Progo.</div></div>
+  </div>
+</section>
+
+<!-- DAFTAR PUSTAKA -->
+<section id="pustaka" class="section">
+  <div class="section-label">Referensi N</div>
+  <h2>📑 Daftar Pustaka</h2>
+  <ul class="pustaka-list">
+    <li>Astawan, M., & Mita, W. (2011). <em>Teknologi Pengolahan Pangan</em>. Bogor: IPB Press.</li>
+    <li>Buckle, K.A., Edwards, R.A., Fleet, G.H., & Wootton, M. (2009). <em>Ilmu Pangan</em> (terjemahan). Jakarta: UI Press.</li>
+    <li>Mohan, M., & Gade, A. (2014). Mucuna pruriens: A Comprehensive Review. <em>Asian Pacific Journal of Tropical Biomedicine</em>, 4(1), 1–8.</li>
+    <li>Nout, M.J.R., & Kiers, J.L. (2005). Tempe Fermentation, Innovation and Functionality. <em>Journal of Applied Microbiology</em>, 98(4), 789–805.</li>
+    <li>Rahayu, W.P. (2001). <em>Penilaian Organoleptik untuk Industri Pangan</em>. Bogor: Fateta IPB.</li>
+    <li>Sarwono, B. (2010). <em>Membuat Tempe dan Oncom</em>. Jakarta: Penebar Swadaya.</li>
+    <li>Sutrisno, C.I. (2012). Pemanfaatan Tanaman Benguk sebagai Pakan Ternak dan Pangan. <em>Seminar Nasional Bioteknologi</em>. Universitas Diponegoro, Semarang.</li>
+    <li>Winarno, F.G. (2004). <em>Kimia Pangan dan Gizi</em>. Jakarta: Gramedia Pustaka Utama.</li>
+    <li>Winarno, F.G., & Fardiaz, S. (2015). <em>Biofermentasi dan Biosintesis Protein</em>. Bandung: Angkasa.</li>
+  </ul>
+</section>
+
+<footer>
+  <p style="font-size:22px;margin-bottom:12px">🫘🌸🔬</p>
+  <p><strong>E-Modul Bioteknologi Konvensional</strong></p>
+  <p>Tempe Benguk Kulon Progo · Magister Pendidikan Biologi · Universitas Negeri Yogyakarta</p>
+  <p style="margin-top:12px">Penyusun: <strong>Fauziyyah Fariidah Tyasari</strong> | Dosen Pengampu: Prof. Dr. Ir. Suhartini, M.S. & Dr. Drs. Suyitno Aloysius, M.S.</p>
+  <p style="margin-top:8px;font-size:11px">🌱 Modul ini didedikasikan untuk melestarikan kearifan lokal Kulon Progo 🌱</p>
+</footer>
+
+</main>
+
+<script>
+  // --- PROGRESS BAR ---
+  window.addEventListener('scroll', () => {
+    const st = window.scrollY;
+    const dh = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress').style.transform = `scaleX(${st/dh})`;
+  });
+
+  // --- ACTIVE NAV LINK ---
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks  = document.querySelectorAll('#sidebar nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  });
+
+  // --- TABS ---
+  function switchTab(btn, panelId) {
+    const wrap = btn.closest('.tab-wrap');
+    wrap.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    wrap.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId).classList.add('active');
+  }
+
+  // --- ANSWER CHECK ---
+  function checkAnswer(el, result) {
+    const opts = el.parentElement.querySelectorAll('.option');
+    opts.forEach(o => { o.classList.remove('correct','wrong'); o.style.pointerEvents='none'; });
+    el.classList.add(result);
+  }
+
+  // --- MOBILE SIDEBAR ---
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  // --- CLOSE SIDEBAR ON LINK CLICK (MOBILE) ---
+  navLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      if(window.innerWidth <= 900)
+        document.getElementById('sidebar').classList.remove('open');
+    });
+  });
+
+  // --- FLOATING EMOJI STAGGER ---
+  document.querySelectorAll('.floating-emoji').forEach((el,i) => {
+    el.style.animationDelay = (i * 0.4) + 's';
+  });
+</script>
+
+</body>
+</html>
